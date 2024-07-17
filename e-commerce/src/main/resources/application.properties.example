@@ -1,0 +1,7 @@
+spring.application.name=e-commerce
+spring.data.mongodb.uri=your db
+spring.data.mongodb.database= e_commerce
+# application.properties
+spring.profiles.active=dev
+management.endpoints.web.exposure.include=*
+management.endpoint.mappings.enabled=true
