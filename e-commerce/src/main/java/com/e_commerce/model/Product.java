@@ -2,11 +2,11 @@ package com.e_commerce.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "product")
+@Document(indexName = "product")
 public class Product {
     @Id
     private String id;

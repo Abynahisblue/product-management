@@ -4,6 +4,8 @@ import com.e_commerce.dto.ProductDTO;
 import com.e_commerce.model.CategoryNode;
 import com.e_commerce.model.Product;
 import com.e_commerce.services.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     private final CategoryService categoryService;
 
@@ -26,14 +30,17 @@ public class CategoryController {
 
     @PostMapping("/add")
     public CategoryNode addCategory(@RequestParam String category) {
+        logger.info("Adding category: {}", category);
         return categoryService.addCategory(category);
     }
+
     @PostMapping("/addSubcategory")
     public CategoryNode addSubcategory(@RequestParam String category, @RequestParam String subcategory, @RequestParam boolean isLeft) {
         return categoryService.addSubcategory(category, subcategory, isLeft);
     }
     @DeleteMapping("/delete")
     public void removeCategory(@RequestParam String category) {
+        logger.warn("Removing category: {}", category);
         categoryService.removeCategory(category);
     }
 
