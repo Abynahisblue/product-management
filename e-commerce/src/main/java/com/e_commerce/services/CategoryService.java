@@ -30,6 +30,7 @@ public class CategoryService {
         this.categoryTree = new CategoryTree();
     }
     public List<CategoryNode> getAllCategories() {
+        System.out.println("hello from CategoryService");
         return categoryRepository.findAll();
     }
 
