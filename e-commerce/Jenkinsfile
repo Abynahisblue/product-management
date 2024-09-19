@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloning the specified branch from the GitHub repository
-                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
+                checkout scmGit(branches: [[name: '*/jenkins']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Abynahisblue/product-management.git']])
             }
         }
 
@@ -13,9 +13,9 @@ pipeline {
             steps {
                 script {
                     // Use bat for Windows commands instead of sh
-                    bat 'docker-compose down || exit 0' // Stops and removes containers, but does not fail if none are running
-                    bat 'docker-compose build' // Builds the Docker images
-                    bat 'docker-compose up -d' // Starts the Docker containers in detached mode
+                    sh 'docker-compose down || exit 0' // Stops and removes containers, but does not fail if none are running
+                    sh 'docker-compose build' // Builds the Docker images
+                    sh 'docker-compose up -d' // Starts the Docker containers in detached mode
                 }
             }
         }
