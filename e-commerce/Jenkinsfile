@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Abynahisblue/product-management/tree/jenkins/e-commerce'
+                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
             }
         }
 
