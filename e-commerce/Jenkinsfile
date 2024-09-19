@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloning the specified branch from the GitHub repository
-                checkout scmGit(branches: [[name: '*/jenkins']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Abynahisblue/product-management.git']])
+                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
             }
         }
 
