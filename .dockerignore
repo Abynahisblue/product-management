@@ -30,7 +30,7 @@
 **/values.dev.yaml
 **/vendor
 LICENSE
-../README.md
+README.md
 **/*.class
 **/*.iml
 **/*.ipr
@@ -50,7 +50,7 @@ LICENSE
 **/target
 *.ctxt
 .mtj.tmp
-../.mvn/timing.properties
+.mvn/timing.properties
 buildNumber.properties
 dependency-reduced-pom.xml
 hs_err_pid*
