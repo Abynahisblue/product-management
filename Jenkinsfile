@@ -13,6 +13,7 @@ pipeline {
             steps {
                 script {
                     // Use bat for Windows commands instead of sh
+                    bat 'chmod +x mvnw'
                     bat 'docker compose down || exit 0' // Stops and removes containers, but does not fail if none are running
                     bat 'docker compose build' // Builds the Docker images
                     bat 'docker compose up -d' // Starts the Docker containers in detached mode
