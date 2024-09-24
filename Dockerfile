@@ -6,7 +6,7 @@ WORKDIR /build
 
 # Copy the project files into the container
 COPY . .
-
+RUN chmod +x mvnw
 # Build the project using Maven, skipping tests
 RUN ./mvnw clean package -DskipTests
 
@@ -24,3 +24,18 @@ EXPOSE 8080
 
 # Command to run the Spring Boot app
 CMD ["java", "-jar", "/app/app.jar"]
+
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:21-jdk-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file into the container
+COPY target/*.jar app.jar
+
+# Expose the port the application runs on
+EXPOSE 8082
+
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "app.jar"]
