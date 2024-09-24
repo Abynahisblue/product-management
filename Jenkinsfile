@@ -4,11 +4,12 @@ pipeline {
         jdk 'JDK' // Ensure this matches the name configured in Jenkins -> Global Tool Configuration
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git branch:'jenkins' url:'https://github.com/Abynahisblue/product-management.git' // Clone your repo
+            stage('Checkout') {
+                steps {
+                    // Corrected syntax for the Git step
+                    git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
+                }
             }
-        }
         stage('Build') {
             steps {
                 bat 'chmod +x mvnw' // Make the Maven wrapper executable
