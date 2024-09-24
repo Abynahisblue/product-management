@@ -8,6 +8,14 @@ pipeline {
                 git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
             }
         }
+         stage('Build') {
+                    steps {
+                        script {
+                            bat './mvnw clean package'
+                        }
+                    }
+                }
+
 
         stage('Build and Deploy with Docker Compose') {
             steps {
