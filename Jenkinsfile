@@ -14,14 +14,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Use Maven Wrapper for Windows; `mvnw.cmd` is for Windows environments
-                bat '.\\mvnw.cmd clean package'
+                bat '.\\mvnw clean package'
             }
         }
 
         stage('Test') {
             steps {
                 // Running tests using Maven Wrapper
-                bat '.\\mvnw.cmd test'
+                bat '.\\mvnw test'
             }
         }
 
