@@ -4,46 +4,53 @@ pipeline {
         jdk 'JDK' // Ensure this matches the name configured in Jenkins -> Global Tool Configuration
     }
     stages {
-            stage('Checkout') {
-                steps {
-                    // Corrected syntax for the Git step
-                    git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
-                }
+        stage('Checkout') {
+            steps {
+                // Cloning the specified branch from the GitHub repository
+                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
             }
+        }
+
         stage('Build') {
             steps {
-                bat 'chmod +x mvnw' // Make the Maven wrapper executable
-                bat './mvnw clean package' // Build the project using Maven
+                // Use Maven Wrapper for Windows; `mvnw.cmd` is for Windows environments
+                bat '.\\mvnw.cmd clean package'
             }
         }
+
         stage('Test') {
             steps {
-                bat'./mvnw test' // Run tests using Maven
+                // Running tests using Maven Wrapper
+                bat '.\\mvnw.cmd test'
             }
         }
+
         stage('Docker Compose Down') {
             steps {
                 script {
-                    // Bring down any running containers, removing orphans
-                    bat 'docker compose down --remove-orphans'
+                    // Stops and removes containers; `--remove-orphans` will remove any orphan containers
+                    bat 'docker compose down --remove-orphans || exit 0' // Does not fail if no containers are running
                 }
             }
         }
+
         stage('Docker Compose Up --build') {
             steps {
                 script {
-                    // Use --build to force a rebuild of the Docker images before starting the services
+                    // Use --build to rebuild images before starting services
                     bat 'docker compose up --build -d'
                 }
             }
         }
     }
+
     post {
         success {
-            echo "Build succeeded"
+            echo 'Build succeeded'
         }
+
         failure {
-            echo "Build failed"
+            echo 'Build failed'
         }
     }
 }
