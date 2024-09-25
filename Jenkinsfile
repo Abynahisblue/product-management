@@ -22,8 +22,8 @@ pipeline {
             steps {
                 script {
 
-                    sh 'docker build -t ecommerce .'
-                    sh ' docker run -d --name ecommmerceapi -p 8081:8081 ecommerce'
+                    sh 'docker build -t productmgmt .'
+                    sh 'docker run -d --name ecommerceapi -p 8081:8081 productmgmt'
                 }
             }
         }
