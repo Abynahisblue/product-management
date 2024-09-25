@@ -25,7 +25,7 @@ services:
       - LOGGING_LEVEL_ROOT=info
       - LOGGING_PATTERN_FILE=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: mongodb
     ports:
       - "27017:27017"
