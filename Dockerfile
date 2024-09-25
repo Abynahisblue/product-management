@@ -32,10 +32,10 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/*.jar app.jar
+COPY ./target/*.jar e-commerce.jar
 
 # Expose the port the application runs on
 EXPOSE 8080
 
 # Run the JAR file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "e-commerce.jar"]
