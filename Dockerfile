@@ -35,7 +35,7 @@ WORKDIR /app
 COPY ./target/*.jar e-commerce.jar
 
 # Expose the port the application runs on
-EXPOSE 8080
+EXPOSE 8081
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "e-commerce.jar"]
