@@ -21,8 +21,6 @@ pipeline {
         stage('Build and Deploy with Docker Compose') {
             steps {
                 script {
-
-                    sh 'docker build -t productmgmt .'
                     sh 'docker run -d --name ecommerceapi -p 8081:8081 productmgmt'
                 }
             }
