@@ -22,7 +22,8 @@ pipeline {
             steps {
                 script {
 
-                    sh 'docker compose up -d'
+                    sh 'docker build -t ecommerce .'
+                    sh ' docker run -d --name ecommmerceapi -p 8081:8081 ecommerce'
                 }
             }
         }
