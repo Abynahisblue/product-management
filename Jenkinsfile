@@ -2,39 +2,40 @@ pipeline {
     agent any
 
 
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                // Use Maven Wrapper for Windows; `mvnw.cmd` is for Windows environments
-                sh './mvnw clean package'
-            }
-        }
-
-
-        stage('Docker Compose Down') {
-            steps {
                 script {
-                    // Stops and removes containers; `--remove-orphans` will remove any orphan containers
-                    sh 'docker compose down --remove-orphans || exit 0' // Does not fail if no containers are running
+                    sh './mvnw clean package'
                 }
             }
         }
 
-        stage('Docker Compose Up --build') {
+        stage('Build and Deploy with Docker Compose') {
             steps {
                 script {
-                    // Use --build to rebuild images before starting services
-                    sh 'docker compose up --build -d'
+
+                    sh 'docker compose down'
+                    sh 'docker compose build'
+                    sh 'docker compose up -d'
                 }
             }
         }
+    }
 
     post {
         success {
-            echo 'Build succeeded'
+            echo 'Pipeline completed successfully!'
         }
 
         failure {
-            echo 'Build failed'
+            echo 'Pipeline failed.'
         }
     }
 }
