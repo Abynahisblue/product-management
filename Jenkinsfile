@@ -1,13 +1,6 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                // Cloning the specified branch from the GitHub repository
-                git branch: 'jenkins', url: 'https://github.com/Abynahisblue/product-management.git'
-            }
-        }
 
         stage('Build') {
             steps {
