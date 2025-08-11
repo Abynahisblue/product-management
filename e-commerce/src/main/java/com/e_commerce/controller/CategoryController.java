@@ -6,6 +6,7 @@ import com.e_commerce.model.Product;
 import com.e_commerce.services.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,10 +29,7 @@ public class CategoryController {
     public CategoryNode addCategory(@RequestParam String category) {
         return categoryService.addCategory(category);
     }
-    @PostMapping("/addSubcategory")
-    public CategoryNode addSubcategory(@RequestParam String category, @RequestParam String subcategory, @RequestParam boolean isLeft) {
-        return categoryService.addSubcategory(category, subcategory, isLeft);
-    }
+
     @DeleteMapping("/delete")
     public void removeCategory(@RequestParam String category) {
         categoryService.removeCategory(category);
@@ -43,38 +41,27 @@ public class CategoryController {
     }
 
 
-    @PostMapping("/addProductToSubcategory")
-    public CategoryNode addProductToSubcategory(@RequestParam String category, @RequestParam String subcategory, @RequestBody ProductDTO product) {
-        return categoryService.addProductToSubcategory(category, subcategory, product);
-    }
-    @PutMapping("/updateProduct")
-    public ResponseEntity<Product> updateProductInSubcategory(
+    @PostMapping("/addProduct")
+    public CategoryNode addProductToCategory(
             @RequestParam String category,
-            @RequestParam String subcategory,
-            @RequestParam String id,
-            @RequestBody ProductDTO productDTO) {
-        Product updatedSubcategory = categoryService.updateProductInSubcategory(category, subcategory, id, productDTO);
-        System.out.println("hello");
-        return ResponseEntity.ok(updatedSubcategory);
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam Double price,
+            @RequestParam Integer quantity,
+            @RequestParam(required = false) MultipartFile image) {
+        
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(name);
+        productDTO.setDescription(description);
+        productDTO.setPrice(price);
+        productDTO.setQuantity(quantity);
+        
+        return categoryService.addProductToCategory(category, productDTO, image);
     }
 
-    @GetMapping("/subcategories")
-    public List<CategoryNode> getSubcategories(@RequestParam String category) {
-        return categoryService.getSubcategories(category);
+    @GetMapping("/category/products")
+    public List<Product> getProductsInCategory(@RequestParam String categoryName) {
+        return categoryService.getProductsInCategory(categoryName);
     }
-
-    @GetMapping("/products")
-    public List<Product> getProductsInSubcategory(@RequestParam String category, @RequestParam String subcategory) {
-        return categoryService.getProductsInSubcategory(category, subcategory);
-    }
-    @DeleteMapping("/removeProduct")
-    public void removeProductFromCategory(@RequestParam String categoryName, @RequestBody Product product) {
-        categoryService.removeProductFromCategory(categoryName, product);
-    }
-
-//    @GetMapping("/products")
-//    public List<Product> getProductsInCategory(@RequestParam String categoryName) {
-//        return categoryService.getProductsInCategory(categoryName);
-//    }
 }
 
