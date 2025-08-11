@@ -4,16 +4,17 @@ import com.e_commerce.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 
-public interface ProductRepository extends MongoRepository<Product, String> {
-    @Query("{ 'name' : { $regex: ?0, $options: 'i' } }")
-    Page<Product> findByNameContaining(String name, Pageable pageable);
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    Page<Product> findByNameContaining(@Param("name") String name, Pageable pageable);
 
-    @Query("{ 'price' : { $gt: ?0 } }")
-    List<Product> findByPriceGreaterThan(double price, Sort sort);
+    @Query("SELECT p FROM Product p WHERE p.price > :price")
+    List<Product> findByPriceGreaterThan(@Param("price") double price, Sort sort);
 }

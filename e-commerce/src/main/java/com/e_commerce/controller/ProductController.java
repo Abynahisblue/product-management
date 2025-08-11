@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getProductById(@RequestParam String id){
+    public ProductDTO getProductById(@PathVariable Long id){
         return productService.getProductById(id);
     }
 
@@ -61,7 +61,7 @@ public class ProductController {
     }
     @PutMapping("/updateProduct")
     public ResponseEntity<Product> updateProduct(
-            @RequestParam String id,
+            @RequestParam Long id,
             @RequestBody ProductDTO productDTO) {
         Product updatedProduct = productService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updatedProduct);
@@ -69,7 +69,7 @@ public class ProductController {
 
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@RequestParam("id") String id){
+    public String deleteProduct( @PathVariable Long id){
         Product deletedProduct = productService.deleteProduct(id);
         if(deletedProduct != null){
             return "Product with" + deletedProduct + "is successfully deleted";
