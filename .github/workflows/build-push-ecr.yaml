@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: eu-central-1
-  ECR_REPOSITORY: ecommerce-app
+  ECR_REPOSITORY: productsapp-prod
   PROJECT_NAME: productsapp
   ENVIRONMENT: prod
   ARTIFACTS_BUCKET: webapp-prod-codepipeline-artifacts-314146322404-eu-central-1
