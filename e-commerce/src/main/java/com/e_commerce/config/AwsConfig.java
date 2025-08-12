@@ -11,7 +11,7 @@ import software.amazon.awssdk.services.ssm.model.GetParameterResponse;
 @Configuration
 public class AwsConfig {
 
-    @Value("${aws.region:us-east-1}")
+    @Value("${AWS_DEFAULT_REGION:eu-central-1}")
     private String awsRegion;
 
     @Bean
