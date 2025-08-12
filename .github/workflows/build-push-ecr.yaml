@@ -1,0 +1,65 @@
+name: Build, Push to ECR, and Prepare Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_REPOSITORY: productsapp-prod
+  PROJECT_NAME: productsapp
+  ENVIRONMENT: prod
+  ARTIFACTS_BUCKET: webapp-prod-codepipeline-artifacts-314146322404-eu-central-1
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push application image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
+          echo "Tagging and pushing as latest..."
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          
+          echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+          echo "✅ Image pushed successfully: $ECR_REGISTRY/$ECR_REPOSITORY:latest"
+
+      - name: Create and Upload Deployment Bundle
+        run: |
+          echo "Zipping deployment configuration..."
+          zip deployment.zip appspec.yaml taskdef.json
+          
+          echo "Uploading deployment bundle to S3..."
+          aws s3 cp deployment.zip s3://${{ env.ARTIFACTS_BUCKET }}/deployment/deployment.zip
+          
+          echo "✅ Deployment bundle uploaded successfully."
+
+      - name: Output deployment info
+        run: |
+          echo "🎯 Deployment Summary:"
+          echo "📦 Image Pushed: ${{ env.IMAGE_URI }}"
+          echo "⚙️  Deployment Bundle: s3://${{ env.ARTIFACTS_BUCKET }}/deployment/deployment.zip"
+          echo "🚀 Pipeline will be triggered automatically by the ECR push."

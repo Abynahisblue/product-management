@@ -20,7 +20,6 @@ public class CustomSerializer extends StdSerializer<CategoryNode> {
     @Override
     public void serialize(CategoryNode categoryNode, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeStartObject();
-        gen.writeStringField("id", categoryNode.getId());
         gen.writeStringField("category", categoryNode.getCategory());
         gen.writeFieldName("products");
         gen.writeObject(categoryNode.getProducts());

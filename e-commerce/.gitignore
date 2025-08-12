@@ -1,0 +1,4 @@
+.idea
+.mvn
+application.properties
+.env

@@ -1,21 +1,32 @@
 package com.e_commerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
 @Data
-@Document(collection = "product")
+@Entity
+@Table(name = "products")
 public class Product {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
+    
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String image;
+    
     private Double price;
+    
     private Integer quantity;
 
-    @DBRef
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    @JsonIgnore
     private CategoryNode subcategoryNode;
 }

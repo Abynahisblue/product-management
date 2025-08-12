@@ -30,7 +30,7 @@ public class ProductService {
                 .map(product -> modelMapper.map(product, ProductDTO.class));
     }
 
-    public ProductDTO getProductById(String id) {
+    public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
         return modelMapper.map(product, ProductDTO.class);
     }
@@ -50,7 +50,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Product updateProduct(String productId, ProductDTO productDTO) {
+    public Product updateProduct(Long productId, ProductDTO productDTO) {
         Optional<Product> existingProductOptional = productRepository.findById(productId);
 
         if (existingProductOptional.isPresent()) {
@@ -69,7 +69,7 @@ public class ProductService {
     }
 
 
-    public Product deleteProduct(String id) {
+    public Product deleteProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             productRepository.deleteById(id);
