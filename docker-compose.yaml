@@ -38,6 +38,6 @@ services:
   webapp:
     build: .
     ports:
-      - "8080:8080"
+      - "8082:8082"
     env_file:
       - .env  # Create this file with your environment variables
