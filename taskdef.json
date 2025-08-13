@@ -4,8 +4,8 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
   "memory": "1024",
-  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/productsapp-prod-task-execution-role",
-  "taskRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/productsapp-prod-task-role",
+  "executionRoleArn": "arn:aws:iam::314146322404:role/productsapp-prod-ecs-TaskExecutionRole-XEPr4cx8s5N7",
+  "taskRoleArn": "arn:aws:iam::314146322404:role/productsapp-prod-ecs-TaskRole-yXjbSOBjoWjj",
   "containerDefinitions": [
     {
       "name": "productsapp-container",
