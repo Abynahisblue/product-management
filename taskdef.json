@@ -2,8 +2,8 @@
   "family": "productsapp-prod-task",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512",
+  "cpu": "512",
+  "memory": "1024",
   "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/productsapp-prod-task-execution-role",
   "taskRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/productsapp-prod-task-role",
   "containerDefinitions": [
@@ -12,7 +12,7 @@
       "image": "<IMAGE1_URI>",
       "portMappings": [
         {
-          "containerPort": 8080,
+          "containerPort": 8082,
           "protocol": "tcp"
         }
       ],
@@ -35,7 +35,7 @@
         },
         {
           "name": "DB_NAME",
-          "value": "ecommerce"
+          "value": "product-management"
         },
         {
           "name": "SPRING_PROFILES_ACTIVE",
@@ -53,11 +53,11 @@
       "secrets": [
         {
           "name": "DB_USERNAME",
-          "valueFrom": "/ecommerce/db/username"
+          "valueFrom": "/productsapp/prod/db/username"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "/ecommerce/db/password"
+          "valueFrom": "/productsapp/prod/db/password"
         }
       ]
     }
