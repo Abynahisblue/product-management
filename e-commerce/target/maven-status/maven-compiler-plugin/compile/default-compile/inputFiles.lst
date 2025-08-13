@@ -3,8 +3,8 @@ C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_co
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\controller\CategoryController.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\interceptor\LoggingInterceptor.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\config\AppConfig.java
+C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\services\S3Service.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\model\ImageMetadata.java
-C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\model\CategoryTree.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\middleware\CustomSerializer.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\repository\CategoryRepository.java
 C:\Users\SandraKumi\Desktop\product-management\e-commerce\src\main\java\com\e_commerce\config\WebConfig.java

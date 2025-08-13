@@ -1,6 +1,7 @@
 com\e_commerce\model\CategoryNode.class
 com\e_commerce\ECommerceApplication.class
 com\e_commerce\repository\ImageMetadataRepository.class
+com\e_commerce\services\S3Service.class
 com\e_commerce\dto\CategoryDTO.class
 com\e_commerce\config\WebConfig.class
 com\e_commerce\config\DatabaseConfig.class
@@ -12,7 +13,6 @@ com\e_commerce\middleware\CustomSerializer.class
 com\e_commerce\controller\CategoryController.class
 com\e_commerce\repository\ProductRepository.class
 com\e_commerce\repository\CategoryRepository.class
-com\e_commerce\model\CategoryTree.class
 com\e_commerce\controller\ProductController.class
 com\e_commerce\exception\ProductNotFoundException.class
 com\e_commerce\interceptor\LoggingInterceptor.class
